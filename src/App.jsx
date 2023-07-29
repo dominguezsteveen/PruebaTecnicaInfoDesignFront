@@ -1,10 +1,11 @@
 import './App.css'
+import TramosList from './components/TramosList'
 
 function App() {
 
   return (
     <>
-      <h1>Hello World</h1>
+      <TramosList />
     </>
   )
 }
