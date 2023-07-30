@@ -93,7 +93,7 @@ function ClienteList() {
         <div className="mx-6 my-10 rounded border">
             <div className="flex flex-row flex-wrap justify-between my-4">
                 <div className="flex flex-row overflow-auto text-xl font-bold ml-8">
-                    <h2>Data Cliente</h2>
+                    <h2>Data Cliente: </h2>
                     <select className="bg-transparent appearance-none ml-2 leading-tight focus:outline-none focus:bg-transparent" name="filtro" id="filtro" onChange={(value) => setFiltro(value.target.value)}>
                         <option className="text-black" value="residencial" >Residencial</option>
                         <option className="text-black" value="comercial" >Comercial</option>
