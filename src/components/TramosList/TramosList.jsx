@@ -62,14 +62,17 @@ function TramosList() {
     );
 
     return (
-        <div>
-            <h2 className="text-lg font-bold">TramosList</h2>
-            <div className="flex flex-row flex-wrap">
+        <div className="mx-6 my-10 rounded border">
+            <div className="flex flex-row flex-wrap justify-between">
+                <h2 className="text-xl font-bold ml-8 my-5">Tramos</h2>
+                <div className="text-xl font-bold mr-10 my-5">Datapicker</div>
+            </div>
+            <div className="flex flex-row flex-wrap justify-center">
                 <div>
                     <TableTramos tramos={tramos} />
                 </div>
 
-                <div className="flex flex-row flex-wrap">
+                <div className="flex flex-row flex-wrap justify-start">
                     <BarChartComponent data={dataConsumo} />
                     <BarChartComponent data={dataPerdidas} />
                     <BarChartComponent data={dataCosto} />
