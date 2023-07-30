@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DatePicker from "react-datepicker";
-import TableTramoCliente from './TableTramoCliente'
+import { format } from 'date-fns';
+import LineChartComponent from "../shared/LineChartComponent";
 
 function TramosCliente() {
     const [data, setData] = useState([])
@@ -8,13 +9,48 @@ function TramosCliente() {
     const [endDate, setEndDate] = useState(new Date("2010-01-31"));
 
     const [tramoFilter, setTramoFilter] = useState("Tramo 1");
-    const [clienteFilter, setClienteFilter] = useState("residencial");
+    const [clienteFilter, setClienteFilter] = useState("Residencial");
 
+
+    const getData = async (starDate, endDate) => {
+        const endpoint = "http://192.168.20.27:4000/tramos-cliente";
+        const requestData = {
+            fechainicial: format(starDate, 'yyyy-MM-dd'),
+            fechafinal: format(endDate, 'yyyy-MM-dd')
+        };
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Response was not ok');
+            }
+
+            const responseData = await response.json();
+            setData(responseData);
+            return responseData;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setData(null);
+            return null;
+        }
+    };
+
+    useEffect(() => {
+        getData(startDate, endDate);
+    }, [startDate, endDate]);
+
+    const dataFiltered = data.filter((data) => data.TipoConsumo == clienteFilter && data.Linea == tramoFilter);
     return (
         <div className="mx-6 my-10 rounded border">
             <div className="flex flex-row flex-wrap justify-between my-4">
                 <div className="flex flex-row overflow-auto text-xl font-bold ml-8">
-                    <h2>Data</h2>
+                    <h2>Data Perdidas</h2>
                     <select className="bg-transparent appearance-none ml-2 leading-tight focus:outline-none focus:bg-transparent" name="tramo" id="tramo" onChange={(value) => setTramoFilter(value.target.value)}>
                         <option className="text-black" value="Tramo 1" >Tramo 1</option>
                         <option className="text-black" value="Tramo 2" >Tramo 2</option>
@@ -23,9 +59,9 @@ function TramosCliente() {
                         <option className="text-black" value="Tramo 5" >Tramo 5</option>
                     </select>
                     <select className="bg-transparent appearance-none ml-2 leading-tight focus:outline-none focus:bg-transparent" name="filtro" id="filtro" onChange={(value) => setClienteFilter(value.target.value)}>
-                        <option className="text-black" value="residencial" >Residencial</option>
-                        <option className="text-black" value="comercial" >Comercial</option>
-                        <option className="text-black" value="industrial" >Industrial</option>
+                        <option className="text-black" value="Residencial" >Residencial</option>
+                        <option className="text-black" value="Comercial" >Comercial</option>
+                        <option className="text-black" value="Industrial" >Industrial</option>
                     </select>
                 </div>
                 <div className="flex flex-wrap items-center">
@@ -46,14 +82,8 @@ function TramosCliente() {
                 </div>
             </div>
             <div className="flex flex-row flex-wrap justify-center my-4">
-                <div className="overflow-auto my-3">
-                    <TableTramoCliente data={data} />
-                </div>
-
                 <div className="flex flex-row flex-wrap justify-start">
-                    {/* <BarChartComponent data={dataConsumo} />
-                    <BarChartComponent data={dataPerdidas} />
-                    <BarChartComponent data={dataCosto} /> */}
+                    <LineChartComponent data={dataFiltered} />
                 </div>
             </div>
         </div>
