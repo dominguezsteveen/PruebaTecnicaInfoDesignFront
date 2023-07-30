@@ -88,7 +88,7 @@ function TramosCliente() {
                 </div>
             </div>
             <div className="flex flex-row flex-wrap justify-center my-4">
-                <div className="flex flex-row flex-wrap justify-start">
+                <div className="flex flex-row flex-wrap justify-start overflow-auto">
                     <LineChartComponent data={dataFormatted} />
                 </div>
             </div>
