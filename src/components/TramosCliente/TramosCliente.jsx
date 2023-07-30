@@ -57,14 +57,14 @@ function TramosCliente() {
             <div className="flex flex-row flex-wrap justify-between my-4">
                 <div className="flex flex-row overflow-auto text-xl font-bold ml-8">
                     <h2>Data Perdidas</h2>
-                    <select className="bg-transparent appearance-none ml-2 leading-tight focus:outline-none focus:bg-transparent" name="tramo" id="tramo" onChange={(value) => setTramoFilter(value.target.value)}>
+                    <select className="bg-transparent appearance-none ml-2 underline cursor-pointer leading-tight focus:outline-none focus:bg-transparent" name="tramo" id="tramo" onChange={(value) => setTramoFilter(value.target.value)}>
                         <option className="text-black" value="Tramo 1" >Tramo 1</option>
                         <option className="text-black" value="Tramo 2" >Tramo 2</option>
                         <option className="text-black" value="Tramo 3" >Tramo 3</option>
                         <option className="text-black" value="Tramo 4" >Tramo 4</option>
                         <option className="text-black" value="Tramo 5" >Tramo 5</option>
                     </select>
-                    <select className="bg-transparent appearance-none ml-2 leading-tight focus:outline-none focus:bg-transparent" name="filtro" id="filtro" onChange={(value) => setClienteFilter(value.target.value)}>
+                    <select className="bg-transparent appearance-none ml-2 underline cursor-pointer leading-tight focus:outline-none focus:bg-transparent" name="filtro" id="filtro" onChange={(value) => setClienteFilter(value.target.value)}>
                         <option className="text-black" value="Residencial" >Residencial</option>
                         <option className="text-black" value="Comercial" >Comercial</option>
                         <option className="text-black" value="Industrial" >Industrial</option>

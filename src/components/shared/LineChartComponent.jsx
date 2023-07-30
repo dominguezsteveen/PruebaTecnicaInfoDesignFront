@@ -19,7 +19,7 @@ function LineChartComponent({ data }) {
 
     const formatDate = (dateString) => {
         const date = parseISO(dateString);
-        return format(date, 'MM-dd'); // 'dd' muestra solo el día del mes
+        return format(date, 'MM-dd');
     };
 
 
