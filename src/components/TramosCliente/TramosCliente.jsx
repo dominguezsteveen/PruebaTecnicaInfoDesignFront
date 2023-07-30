@@ -46,6 +46,12 @@ function TramosCliente() {
     }, [startDate, endDate]);
 
     const dataFiltered = data.filter((data) => data.TipoConsumo == clienteFilter && data.Linea == tramoFilter);
+
+    const dataFormatted = dataFiltered.map((item) => {
+        const originalDate = new Date(item.Fecha);
+        const formattedDate = `${originalDate.getFullYear()}-${String(originalDate.getMonth() + 1).padStart(2, '0')}-${String(originalDate.getDate()).padStart(2, '0')}`;
+        return { ...item, Fecha: formattedDate };
+    });
     return (
         <div className="mx-6 my-10 rounded border">
             <div className="flex flex-row flex-wrap justify-between my-4">
@@ -83,7 +89,7 @@ function TramosCliente() {
             </div>
             <div className="flex flex-row flex-wrap justify-center my-4">
                 <div className="flex flex-row flex-wrap justify-start">
-                    <LineChartComponent data={dataFiltered} />
+                    <LineChartComponent data={dataFormatted} />
                 </div>
             </div>
         </div>
