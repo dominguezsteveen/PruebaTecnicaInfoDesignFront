@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import TableTramos from "./TableTramos";
 import BarChartComponent from "./BarChartComponent";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from 'date-fns'
 
 function TramosList() {
     const [tramos, setTramos] = useState([]);
+    const [startDate, setStartDate] = useState(new Date("2010-01-02"));
+    const [endDate, setEndDate] = useState(new Date("2010-01-31"));
 
-    const getTramos = async () => {
-        const endpoint = "http://localhost:4000/tramos";
+    const getTramos = async (starDate, endDate) => {
+        const endpoint = "http://192.168.20.27:4000/tramos";
         const requestData = {
-            fechainicial: "2010-01-01",
-            fechafinal: "2010-01-30"
+            fechainicial: format(starDate, 'yyyy-MM-dd'),
+            fechafinal: format(endDate, 'yyyy-MM-dd')
         };
-
         try {
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -36,8 +40,8 @@ function TramosList() {
     };
 
     useEffect(() => {
-        getTramos();
-    }, []);
+        getTramos(startDate, endDate);
+    }, [startDate, endDate]);
 
     const dataConsumo = tramos.reduce(
         (acc, tramo) => {
@@ -65,7 +69,22 @@ function TramosList() {
         <div className="mx-6 my-10 rounded border">
             <div className="flex flex-row flex-wrap justify-between">
                 <h2 className="text-xl font-bold ml-8 my-5">Tramos</h2>
-                <div className="text-xl font-bold mr-10 my-5">Datapicker</div>
+                <div className="flex items-center">
+                    <div className="w-auto mr-3">
+                        <DatePicker className="bg-transparent text-center border border-gray-800 rounded mx-3"
+                            selected={startDate}
+                            onSelect={(date) => setStartDate(date)}
+                            dateFormat={"yyyy-MM-dd"} />
+                    </div>
+                    <div className="h-px w-3 bg-gray-300"></div>
+                    <div className="w-auto ml-3">
+                        <DatePicker className="bg-transparent text-center border border-gray-800 rounded mx-3"
+                            selected={endDate}
+                            onSelect={(date) => setEndDate(date)}
+                            dateFormat={"yyyy-MM-dd"} />
+                    </div>
+
+                </div>
             </div>
             <div className="flex flex-row flex-wrap justify-center">
                 <div>
