@@ -1,8 +1,7 @@
 import './App.css'
-import TramosList from './components/TramosList'
+import TramosList from './components/TramosList/TramosList'
 
 function App() {
-
   return (
     <>
       <TramosList />
