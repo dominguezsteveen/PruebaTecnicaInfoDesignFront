@@ -41,7 +41,7 @@ function LineChartComponent({ data, objetivo }) {
         }
     };
     return (
-        <LineChart width={1500} height={300} data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <LineChart width={1400} height={300} data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="Fecha" tickFormatter={formatDate} />
             <YAxis />

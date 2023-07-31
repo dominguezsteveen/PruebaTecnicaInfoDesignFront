@@ -1,0 +1,33 @@
+.lazy-loading-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 375px;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-right: 30px;
+    margin-left: 26px;
+}
+
+/* Estilo base del spinner */
+.spinner {
+    width: 70px;
+    height: 70px;
+    border: 8px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border-top: 8px solid #007bff;
+    /* Color del spinner, puedes cambiarlo */
+    animation: spin 1s linear infinite;
+}
+
+/* Animación para girar el spinner */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
