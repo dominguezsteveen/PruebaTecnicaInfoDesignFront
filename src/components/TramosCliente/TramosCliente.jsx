@@ -14,11 +14,11 @@ function TramosCliente() {
 
 
     const getData = async (starDate, endDate, objetivo) => {
-        let endpoint = "http://192.168.20.27:4000/tramos-cliente";
+        let endpoint = "http://127.0.0.1:4000/tramos-cliente";
         if (objetivo == "Consumo") {
-            endpoint = "http://192.168.20.27:4000/tramos-cliente-consumo";
+            endpoint = "http://127.0.0.1:4000/tramos-cliente-consumo";
         } else if (objetivo == "Costos") {
-            endpoint = "http://192.168.20.27:4000/tramos-cliente-costos";
+            endpoint = "http://127.0.0.1:4000/tramos-cliente-costos";
         }
         const requestData = {
             fechainicial: format(starDate, 'yyyy-MM-dd'),

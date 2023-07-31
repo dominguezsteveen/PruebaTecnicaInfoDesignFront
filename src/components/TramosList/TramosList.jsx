@@ -11,7 +11,7 @@ function TramosList() {
     const [endDate, setEndDate] = useState(new Date("2010-01-31"));
 
     const getTramos = async (starDate, endDate) => {
-        const endpoint = "http://192.168.20.27:4000/tramos";
+        const endpoint = "http://127.0.0.1:4000/tramos";
         const requestData = {
             fechainicial: format(starDate, 'yyyy-MM-dd'),
             fechafinal: format(endDate, 'yyyy-MM-dd')

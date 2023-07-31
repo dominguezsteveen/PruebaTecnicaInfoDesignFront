@@ -14,7 +14,7 @@ function ClienteList() {
 
 
     const getData = async (starDate, endDate) => {
-        const endpoint = "http://192.168.20.27:4000/cliente";
+        const endpoint = "http://127.0.0.1:4000/cliente";
         const requestData = {
             fechainicial: format(starDate, 'yyyy-MM-dd'),
             fechafinal: format(endDate, 'yyyy-MM-dd')
