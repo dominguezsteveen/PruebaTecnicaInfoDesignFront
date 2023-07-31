@@ -6,12 +6,12 @@ function LineChartComponent({ data, objetivo }) {
 
     const customTooltip = (data) => {
         if (data.active && data.payload && data.payload.length) {
-            const { Fecha, Perdidas, Consumo } = data.payload[0].payload;
+            const { Fecha, Perdidas, Consumo, Costos } = data.payload[0].payload;
 
             return (
                 <div className="custom-tooltip">
                     <p className="label">{`Fecha: ${Fecha}`}</p>
-                    <p className="label">{`Perdida: ${objetivo == "Consumo" ? Consumo : Perdidas}`}</p>
+                    <p className="label">{`Perdida: ${objetivo == "Consumo" ? Consumo : objetivo == "Costos" ? Costos : Perdidas}`}</p>
                 </div>
             );
         }
@@ -24,32 +24,20 @@ function LineChartComponent({ data, objetivo }) {
     };
 
 
-    const maxLoss = Math.max(...data.map((entry) => objetivo == "Consumo" ? entry.Consumo : entry.Perdidas));
-    const minLoss = Math.min(...data.map((entry) => objetivo == "Consumo" ? entry.Consumo : entry.Perdidas));
+    const maxLoss = Math.max(...data.map((entry) => objetivo == "Consumo" ? entry.Consumo : objetivo == "Costos" ? entry.Costos : entry.Perdidas));
+    const minLoss = Math.min(...data.map((entry) => objetivo == "Consumo" ? entry.Consumo : objetivo == "Costos" ? entry.Costos : entry.Perdidas));
 
     const getDotStyle = ({ cx, cy, index, stroke, payload }) => {
-        if (objetivo == "Consumo") {
-            if (payload.Consumo == maxLoss || payload.Consumo == minLoss) {
-                return (
-                    <g key={index}>
-                        <Dot cx={cx} cy={cy} r={8} fill={stroke} />
-                        <Dot cx={cx} cy={cy} r={4} fill="#fff" stroke={stroke} strokeWidth={2} />
-                    </g>
-                );
-            } else {
-                return null;
-            }
+        let valorComparar = objetivo == "Consumo" ? payload.Consumo : objetivo == "Costos" ? payload.Costos : payload.Perdidas;
+        if (valorComparar == maxLoss || valorComparar == minLoss) {
+            return (
+                <g key={index}>
+                    <Dot cx={cx} cy={cy} r={8} fill={stroke} />
+                    <Dot cx={cx} cy={cy} r={4} fill="#fff" stroke={stroke} strokeWidth={2} />
+                </g>
+            );
         } else {
-            if (payload.Perdidas == maxLoss || payload.Perdidas == minLoss) {
-                return (
-                    <g key={index}>
-                        <Dot cx={cx} cy={cy} r={8} fill={stroke} />
-                        <Dot cx={cx} cy={cy} r={4} fill="#fff" stroke={stroke} strokeWidth={2} />
-                    </g>
-                );
-            } else {
-                return null;
-            }
+            return null;
         }
     };
     return (
@@ -59,7 +47,7 @@ function LineChartComponent({ data, objetivo }) {
             <YAxis />
             <Tooltip content={customTooltip} />
             <Legend />
-            {objetivo == "Consumo" ? <Line type="monotone" dataKey="Consumo" stroke="#8884d8" dot={getDotStyle} /> : <Line type="monotone" dataKey="Perdidas" stroke="#8884d8" dot={getDotStyle} />}
+            <Line type="monotone" dataKey={objetivo} stroke="#8884d8" dot={getDotStyle} />
         </LineChart>
     )
 }
